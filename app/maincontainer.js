@@ -1,5 +1,5 @@
 import { View, Text, Pressable, Button, StyleSheet } from 'react-native'
-import React, { useContext } from 'react'
+import React, { useContext, useEffect } from 'react'
 import { StatusBar } from 'expo-status-bar';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import Register from '../components/register';
@@ -13,13 +13,15 @@ import { Redirect } from 'expo-router';
 
 const Main = () => {
 
-  const { containerStyle, msgBox, externalContainer, screenChoice, screenOption, logo } = styles;
+  const { containerStyle, externalContainer, screenChoice, screenOption, logo } = styles;
 
 
 
   const [screen, setScreen] = useState('register');
 
-  const { userToken } = useContext(AuthContext);
+  const { userToken, isLoggedIn } = useContext(AuthContext);
+
+
  
 
   if (userToken) {
@@ -54,10 +56,7 @@ const Main = () => {
             {
               screen == 'register' ? <Register /> : <Login />
             }
-            <View style={msgBox}>
-              <Text>Some text response to your input</Text>
-            </View>
-
+           
           </SafeAreaView>
         </View>
   )
@@ -73,14 +72,6 @@ const styles = StyleSheet.create({
   externalContainer: {
     flex: 1,
     justifyContent: 'flex-start',
-  },
-  msgBox: {
-    backgroundColor: '#e0d5b6',
-    padding: 15,
-    borderRadius: 6,
-    borderColor: '#b5953c',
-    borderWidth: 1
-    ,
   },
   screenChoice: {
     flexDirection: 'row',

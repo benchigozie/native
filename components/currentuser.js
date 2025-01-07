@@ -1,26 +1,30 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import { View, Text, StyleSheet, Image} from 'react-native';
 
 import AntDesign from '@expo/vector-icons/AntDesign';
+import { AuthContext } from '../context/authContext';
 
 
 
 const CurrentUser = () => {
 
-    const { frame, user, username, userrole, row } = styles;
+    let { user } = useContext(AuthContext);
+    
+
+    const { frame, userStyle, username, userrole, row } = styles;
   return (
  
     <View  style={{backgroundColor: '#D9D9D9',}}>
-      <View style={user}>
+      <View style={userStyle}>
         <View style={frame}>
             {
                 <AntDesign name="user" size={120} color="black" /> 
             }
         </View>
         
-        <Text style={username}>Dr. Bluuuu Huuuuuu</Text>
+        <Text style={username}>{user.name}</Text>
         <View style={row}>
-          <Text style={userrole}>Admin</Text>
+          <Text style={userrole}>{user.role}</Text>
           
         </View>
         
@@ -42,7 +46,7 @@ const styles = StyleSheet.create({
         overflow: 'hidden',
       
     },
-    user: {
+    userStyle: {
         alignItems: 'center',
         justifyContent: 'center',
         paddingVertical: 50,
