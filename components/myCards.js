@@ -4,6 +4,7 @@ import { StyleSheet } from 'react-native';
 import Cards from './cards';
 import { AuthContext } from '../context/authContext';
 import axios from 'axios';
+import { set } from 'react-hook-form';
 
 const MyCards = () => {
 
@@ -11,10 +12,62 @@ const MyCards = () => {
 
   const [registerMode, setRegisterMode] = useState(false);
   const [recievedCard, setRecievedCard] = useState(false);
+  const [cardName, setCardName] = useState('');
+  const [cardUID, setCardUID] = useState('');
+  const [saveStatus, setSaveStatus] = useState(false);
+  const [saveStatusMessage, setSaveStatusMessage] = useState('');
+
+  const saveCard = async () => {
+    console.log('save card');
+    if (cardName === '') {
+      setSaveStatusMessage("Card Name Cannot be empty required");
+      setSaveStatus(true);
+      return;
+    }
+    try {
+      await axios.post("http://192.168.0.4:3000/api/card/register", {
+
+        email: user.email,
+        uid: cardUID,
+        name: cardName,
+
+      }).then ((response) => {
+        console.log("bleh")
+        console.log(response.data); 
+        if (response.status === 200) {
+          setSaveStatusMessage("Card Saved Successfully");
+          setSaveStatus(true);
+          
+        }
+        else {
+          setSaveStatusMessage("Error saving card");
+          setSaveStatus(true);
+          
+        }
+      })
+  } finally {
+    setRegisterMode(false);
+    setRecievedCard(false);
+  }
+};
+
+const cancelRegistration = () => {
+  setRegisterMode(false);
+};
+
+
+  const handleChangeText = (text) => {
+    setCardName(text);
+    console.log(text);
+  };
+
   const addNewCard = async () => {
     console.log('add new card');
+    setCardName('');
+    setCardUID('');
     setRegisterMode(true);
     setRecievedCard(false);
+    setSaveStatus(false);
     try {
       await axios.get("http://192.168.0.240/register")
         .then(async (response) => {
@@ -25,35 +78,27 @@ const MyCards = () => {
           }
           console.log(response.data);
           setRecievedCard(true);
-          await axios.post("http://192.168.0.4:3000/api/card/register", {
-
-            email: user.email,
-            uid: response.data.uid,
-          })
+          setCardUID(response.data.uid);
         })
     } finally {
 
     }
   }
-  const { myCards, myCardsText, addACardText } = styles;
+  const { myCards, myCardsText, addACardText, someButtonStyle } = styles;
   return (
     <View style={myCards}>
       <Text style={myCardsText}>My Cards</Text>
-      <Cards />
+      {
+        registerMode ? <Text>Register Mode:</Text> : <Cards />
+      }
       {
        !registerMode ?
-        <Pressable style={
-          {
-            backgroundColor: '#1679AB',
-            padding: 10,
-            width: 100,
-            borderRadius: 5,
-  
-          }
-        } onPress={addNewCard}>
+        <Pressable style={someButtonStyle} onPress={addNewCard}>
           <Text style={addACardText} >Add a Card</Text>
         </Pressable>
-         : null
+         : <Pressable style={someButtonStyle} onPress={cancelRegistration}>
+          <Text style={addACardText}>Cancel</Text>  
+         </Pressable>
       }
       
       {
@@ -74,14 +119,21 @@ const MyCards = () => {
                   }}>Card Recieved Successfully</Text>
                 </View>
             }
+            
           </View> : null
+      }
+      {
+        saveStatus ?
+          <Text style={{
+            textAlign: 'center',
+          }}>{saveStatusMessage}</Text> : null
       }
 
       {
         recievedCard ?
           <View>
-            <TextInput placeholder="Enter Card Name" />
-            <Pressable style={
+            <TextInput placeholder="Enter Card Name" onChangeText={handleChangeText}/>
+            <Pressable onPress={saveCard} style={
               {
                 backgroundColor: '#83D9F1',
                 padding: 10,
@@ -89,7 +141,7 @@ const MyCards = () => {
                 width: 100,
               }
             }>
-              <Text>Save Card</Text>
+              <Text style={{textAlign: 'center'}}>Save Card</Text>
             </Pressable>
           </View> : null
       }
@@ -115,7 +167,14 @@ const styles = StyleSheet.create({
   addACardText: {
     textAlign: 'center',
     color: 'white',
-  }
+  },
+  someButtonStyle: {
+    backgroundColor: '#1679AB',
+    padding: 10,
+    width: 100,
+    borderRadius: 5,
+
+  },
 })
 
 export default MyCards;

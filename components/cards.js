@@ -13,7 +13,7 @@ const Cards = () => {
   console.log(user);
 
 
-  const { cardView, cardStatus, cardSubsection, bleButton, deleteCardButton } = styles;
+  const { cardView, cardStatus, cardSubsection, bleButton, deleteCardButton, cardsView } = styles;
 
   const getMyCards = async () => {
     try {
@@ -85,7 +85,7 @@ const Cards = () => {
   }
   else {
     return (
-      <View>
+      <View style={cardsView}>
       {myCards.length === 0 ? (
         <Text>No cards available</Text> // If no cards returned, show a message
       ) : (
@@ -130,6 +130,9 @@ const styles = StyleSheet.create({
     padding: 20,
     backgroundColor: '#ffffff',
     borderRadius: 6,
+    gap: 10,
+  },
+  cardsView: {
     gap: 10,
   },
   cardStatus: {
