@@ -20,7 +20,7 @@ const validationSchema = yup.object().shape({
 
 const registerFunc = async () => {
   try {
-    await axios.get("http://192.168.86.81:3000/api/user/register");
+    await axios.get("http://192.168.151.81:3000/api/user/register");
   } catch (error) {
     console.log(error.message)
   }
@@ -54,8 +54,8 @@ const Register = () => {
     }}
       onSubmit={
         async (values) => {
-          
-          await axios.post("http://192.168.86.81:3000/api/user/register", values)
+          console.log(values)
+          await axios.post("http://192.168.0.3:3000/api/user/register", values)
           .then((response) => {
             setError(response.data.success);
           })

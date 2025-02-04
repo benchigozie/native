@@ -7,6 +7,7 @@ import Unlock from './unlockdoor';
 import Disable from './disableExitButton';
 import Connection from './connection'; 
 import Logs from './logs';
+import Update from './update';
 const Home = () => {
 
 
@@ -19,6 +20,7 @@ const Home = () => {
                     <Logs />
                     <Connection />
                     <Disable />
+                    <Update />
                 </View>
             </ScrollView>
             

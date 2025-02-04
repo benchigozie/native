@@ -5,7 +5,7 @@ import { View, StyleSheet } from "react-native";
 const StatusIndicator = (prop) => {
 
     const { color } = prop;
-    console.log(prop);
+    
 
     return (
         <View style={{

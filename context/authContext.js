@@ -79,7 +79,6 @@ export const AuthContext = createContext();
         
     }
 
-    
 
     useEffect(() => {
         isLoggedIn();

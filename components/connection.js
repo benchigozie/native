@@ -1,10 +1,18 @@
-import React from "react";
+import React, {useState} from "react";
 import { View, Text, StyleSheet,Pressable } from "react-native";
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import StatusIndicator from "./statusindicator";
+import axios from "axios";
 
 const Connection = () => {
+
+    
+
     const { conntext, connstyle, connoption } = styles;
+
+
+
+
     return (
         <View style={connstyle}>
             <View style={conntext}>
@@ -15,7 +23,7 @@ const Connection = () => {
         
             </View>
             
-            <Pressable style={connoption}>
+            <Pressable style={connoption} >
                 <Text>Local Connection </Text>
                 <StatusIndicator color='#ccc' />
             </Pressable>
@@ -23,6 +31,7 @@ const Connection = () => {
                 <Text>Wifi Internet Connection</Text>
                 <StatusIndicator color='#ccc' />
             </Pressable>
+            
         </View>
     )
 };
