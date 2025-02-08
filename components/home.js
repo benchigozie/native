@@ -5,8 +5,7 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import CurrentUser from './currentuser';
 import Unlock from './unlockdoor';
 import Disable from './disableExitButton';
-import Connection from './connection'; 
-import Logs from './logs';
+
 import Update from './update';
 const Home = () => {
 
@@ -17,8 +16,6 @@ const Home = () => {
                 <View>
                     <CurrentUser />
                     <Unlock />
-                    <Logs />
-                    <Connection />
                     <Disable />
                     <Update />
                 </View>

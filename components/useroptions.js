@@ -12,10 +12,41 @@ import axios from 'axios';
 
 
 
-const UserOptions = ({ userEmail, userStatus, getAllUsers, setIsloading }) => {
 
- // const { user } = useContext(AuthContext);
+const UserOptions = ({ userEmail, userStatus, getAllUsers, setIsloading, userRole }) => {
 
+  const [viewState, setViewState] = useState(false);
+
+  const handleViewState = () => {
+    setViewState(!viewState);
+  };
+
+  const { user } = useContext(AuthContext);
+ const promoteUser = async () => {
+  setIsloading(true);
+  try {
+    await axios.put("http://192.168.0.4:3000/api/user/promote", {
+      email: userEmail,
+    })
+  } finally {
+    
+    getAllUsers();
+    setIsloading(false);
+  }
+};
+
+const demoteUser = async () => {
+  setIsloading(true);
+  try {
+    await axios.put("http://192.168.0.4:3000/api/user/demote", {
+      email: userEmail,
+    })
+  } finally {
+    
+    getAllUsers();
+    setIsloading(false);
+  }
+};
   
 
   const enableUser = async () => {
@@ -87,62 +118,119 @@ const UserOptions = ({ userEmail, userStatus, getAllUsers, setIsloading }) => {
                 borderRadius: 5,
                 //flexGrow: 0,
               }}>
-                <Text>Card 1</Text>
-                <Text>Active <StatusIndicator color='green'></StatusIndicator></Text>
+                <Text>Status</Text>
+                <Text>{userStatus} <StatusIndicator color={userStatus == "active" ? "green": "red"}></StatusIndicator></Text>
               </View>
 
             </Pressable>
-            <Pressable>
-              <View style={{
-                flexDirection: 'row',
-                //justifyContent: 'space-between',
-                gap: 40,
-                backgroundColor: '#83D9F1',
-                padding: 10,
+            {
+              user.role == "admin" || user.role == "master" ? 
+              <Pressable style={{
+                backgroundColor: "#4e5154",
                 borderRadius: 5,
-                //flexGrow: 0,
-              }}>
-                <Text>Card 2</Text>
-                <Text>Active <StatusIndicator color='green'></StatusIndicator></Text>
-              </View>
-
-            </Pressable>
+              }} onPress={ userRole == "staff" ? promoteUser : demoteUser }>
+                <View style={{
+                  flexDirection: 'row',
+                  //justifyContent: 'space-between',
+                  gap: 40,
+                  padding: 10,
+                  //flexGrow: 0,
+                }}>
+                  
+                  {userRole == "admin" ? <Text style={{ color: "#f0f1f2"}}>Demote this user</Text> : <Text style={{ color: "#f0f1f2"}}>Promote this user</Text>} 
+                </View>
+  
+              </Pressable>
+              : null
+            }
+            
           </View>
 
         </View>
-        <View style={{
-          gap: 10,
-        }}>
-        
-            {
-              userStatus == "active" ?
-              <Pressable onPress={() => disableUser(userEmail)}>
-                <Text style={{
-                  backgroundColor: '#1B9DC0',
-                  color: '#EDE5E5',
-                  padding: 10,
-                }}>Disable User</Text>
-                </Pressable>
-                :
-                <Pressable onPress={() => enableUser(userEmail)}>   
-                <Text style={{
-                  backgroundColor: '#1B9DC0',
-                  color: '#EDE5E5',
-                  padding: 10,
-                }}>Enable User</Text>
-                </Pressable>
-            }
-        
-          <Pressable onPress={() => {
-            deleteUser(userEmail);
+        {
+          user.role == "admin" || user.role == "master" ? 
+          <View style={{
+            gap: 10,
           }}>
-            <Text style={{
-              backgroundColor: '#EC2C2C',
-              color: '#EDE5E5',
-              padding: 10,
-            }}>Delete User</Text>
-          </Pressable>
-        </View>
+          
+              {
+                userStatus == "active" ?
+                <Pressable style={{
+                  backgroundColor: '#1B9DC0',
+                  borderRadius: 5,
+                }} onPress={() => disableUser(userEmail)}>
+                  <Text style={{
+                    color: '#EDE5E5',
+                    padding: 10,
+                  }}>Disable User</Text>
+                  </Pressable>
+                  :
+                  <Pressable  style={{
+                    backgroundColor: '#1B9DC0',
+                    borderRadius: 5,
+                  }} onPress={() => enableUser(userEmail)}>   
+                  <Text style={{
+                    color: '#EDE5E5',
+                    padding: 10,
+                  }}>Enable User</Text>
+                  </Pressable>
+              }
+          
+            <Pressable style={{
+                    backgroundColor: '#EC2C2C',
+                    borderRadius: 5,
+                  }} onPress={() => {
+              deleteUser(userEmail);
+            }}>
+              <Text style={{
+                color: '#EDE5E5',
+                padding: 10,
+              }}>Delete User</Text>
+            </Pressable>
+          </View>
+          : null
+        }
+          <View style={{
+            gap: 10,
+          }}>
+          
+              {
+                userStatus == "active" ?
+                <Pressable style={{
+                  backgroundColor: '#1B9DC0',
+                  borderRadius: 5,
+                }} onPress={() => disableUser(userEmail)}>
+                  <Text style={{
+                    color: '#EDE5E5',
+                    padding: 10,
+                  }}>Disable User</Text>
+                  </Pressable>
+                  :
+                  <Pressable  style={{
+                    backgroundColor: '#1B9DC0',
+                    borderRadius: 5,
+                  }} onPress={() => enableUser(userEmail)}>   
+                  <Text style={{
+                    color: '#EDE5E5',
+                    padding: 10,
+                  }}>Enable User</Text>
+                  </Pressable>
+              }
+          
+            <Pressable style={{
+                    backgroundColor: '#EC2C2C',
+                    borderRadius: 5,
+                  }} onPress={() => {
+              deleteUser(userEmail);
+            }}>
+              <Text style={{
+                color: '#EDE5E5',
+                padding: 10,
+              }}>Delete User</Text>
+            </Pressable>
+          </View>
+          
+   
       </View>
     </SafeAreaView>
 

@@ -55,9 +55,10 @@ const Register = () => {
       onSubmit={
         async (values) => {
           console.log(values)
-          await axios.post("http://192.168.0.3:3000/api/user/register", values)
+          await axios.post("http://192.168.0.4:3000/api/user/register", values)
           .then((response) => {
             setError(response.data.success);
+            
           })
           .catch((error) => {
             setError(error.response.data.error)

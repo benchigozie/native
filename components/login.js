@@ -8,6 +8,7 @@ import { AuthContext } from '../context/authContext';
 
 import * as yup from 'yup';
 import axios from 'axios';
+import { set } from 'react-hook-form';
 
 
 const validationSchema = yup.object().shape({
@@ -26,7 +27,11 @@ const Login = () => {
 
 
 
+  const [ errorView, setErrorView ] = useState('');
 
+  const setError = (error) => {
+    setErrorView(error);
+  }
 
 
 
@@ -46,16 +51,17 @@ const Login = () => {
       onSubmit={
         async (values) => {
           
-          await axios.post("http://192.168.0.3:3000/api/user/login", values)
+          await axios.post("http://192.168.0.4:3000/api/user/login", values)
           .then((response) => {
             if(response.status === 200) {
               console.log('200 stuff')
               login(response.data.accessToken, response.data.user)
             }
             
+            
           })
           .catch((error) => {
-            console.log(error.response.data.error)
+            setError(error.response.data.error)
           });
         }
       }
@@ -91,6 +97,9 @@ const Login = () => {
         </View>
         <Button title='Login' onPress={handleSubmit}></Button>
 
+        {
+            errorView ? <Text>{errorView}</Text> : ""
+           }
         <View>
                       {
               errors.email ? <Text style={redText}>{errors.email}</Text> : ""

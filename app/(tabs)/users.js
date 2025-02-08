@@ -50,7 +50,12 @@ const Users = () => {
     
                     padding: 10,
                 }}>
-                    <Text>users</Text>
+                    <Text style={{
+                        fontSize: 25,
+                        fontWeight: 'bold',
+                        textAlign: 'center',
+                        marginBottom: 10,
+                    }}>users</Text>
                     <View style={{
                         gap:10,
                         //check if shadow later works
@@ -96,12 +101,15 @@ const Users = () => {
                                                 <View style={{
                                                     gap: 10,
                                                 }}>
-                                                    <Text>{personnel.name}</Text>
+                                                    <Text style={{
+                                                        fontSize: 20,
+                                                        fontWeight: 'bold',
+                                                    }}>{personnel.name}</Text>
                                                     <Text>Role: {personnel.role}</Text>
                                                 </View>
                         
                                             </View>
-                                            <UserOptions userEmail={personnel.email} userStatus={personnel.status} getAllUsers={getAllUsers} setIsloading={setIsloading}/>
+                                            <UserOptions userEmail={personnel.email} userStatus={personnel.status} getAllUsers={getAllUsers} setIsloading={setIsloading} userRole={personnel.role}/>
                         
                         
                         

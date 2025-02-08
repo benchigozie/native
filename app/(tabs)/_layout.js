@@ -1,21 +1,39 @@
 import { Tabs } from "expo-router";
 import { Redirect } from "expo-router";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import { AuthContext } from "../../context/authContext";
+
+import { io } from "socket.io-client";
 
 const TabsLayout = () => {
 
-    const {userToken} = useContext(AuthContext);
     
+    const { logout, user } = useContext(AuthContext);
+    
+    useEffect(() => {
+
+        const socket = io("http://192.168.0.4:3000", {
+            query: { userEmail: user.email }, // Pass user email
+        });
+        
+        socket.on("connect", () => {
+            console.log("Connected to WebSocket:", socket.id);
+        });
+        socket.on("forceLogout", () => {
+            console.log("Force logout received, logging out...");
+            logout();
+        });
+
+        return () => {
+            socket.disconnect(); // Clean up when component unmounts
+        };
+    }, []);
     
 
 
 
 
- //  if (userToken == null) {
- //  return <Redirect href={'../'}/>
-  
-  //  }
+ 
 
     return (
         <Tabs>
@@ -34,11 +52,7 @@ const TabsLayout = () => {
                 title: 'users',
                 
             }} />
-             <Tabs.Screen name="notifications"  options={{
-                headerShown: false,
-                title: 'notifications',
-                
-            }} />
+            
         </Tabs>
     )
 };

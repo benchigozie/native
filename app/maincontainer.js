@@ -11,6 +11,7 @@ import { Redirect } from 'expo-router';
 
 
 
+
 const Main = () => {
 
   const { containerStyle, externalContainer, screenChoice, screenOption, logo } = styles;
@@ -19,10 +20,8 @@ const Main = () => {
 
   const [screen, setScreen] = useState('register');
 
-  const { userToken, isLoggedIn } = useContext(AuthContext);
+  const { userToken, isLoggedIn, user } = useContext(AuthContext);
 
-
- 
 
   if (userToken) {
     return <Redirect href="(tabs)" />;

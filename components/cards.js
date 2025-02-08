@@ -25,7 +25,7 @@ const Cards = () => {
         .then((response) => {
           setMyCards(response.data);
           console.log(response.data);
-
+          console.log("this is the mister four stuff", user.email);
         })
     } finally {
       setIsloading(false)
