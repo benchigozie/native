@@ -55,7 +55,7 @@ const Register = () => {
       onSubmit={
         async (values) => {
           console.log(values)
-          await axios.post("http://192.168.0.4:3000/api/user/register", values)
+          await axios.post("https://gauthbackendnodeserver.onrender.com/api/user/register", values)
           .then((response) => {
             setError(response.data.success);
             

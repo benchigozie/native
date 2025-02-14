@@ -18,7 +18,7 @@ const Users = () => {
 
     const getAllUsers = async ( ) => {
         try {
-            await axios.get("http://192.168.0.4:3000/api/user/all")
+            await axios.get("https://gauthbackendnodeserver.onrender.com/api/user/all")
                                 .then((response) => {
                                     setAllUsers(response.data);
                                     

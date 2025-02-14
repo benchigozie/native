@@ -17,15 +17,15 @@ const Cards = () => {
 
   const getMyCards = async () => {
     try {
-      await axios.get('http://192.168.0.4:3000/api/card/mycards', {
+      await axios.get('https://gauthbackendnodeserver.onrender.com/api/card/mycards', {
         params: {
-          email: user.email,
+          email: "benmarrk@gmail.com",
         },
       })
         .then((response) => {
           setMyCards(response.data);
           console.log(response.data);
-          console.log("this is the mister four stuff", user.email);
+          console.log(user.email);
         })
     } finally {
       setIsloading(false)
@@ -36,7 +36,7 @@ const Cards = () => {
   const enableCard = async (card) => {
     setIsloading(true);
     try {
-      await axios.put("http://192.168.0.4:3000/api/card/enable", {
+      await axios.put("https://gauthbackendnodeserver.onrender.com/card/enable", {
         email: card.email,
         name: card.name,
       })
@@ -51,7 +51,7 @@ const Cards = () => {
   const disableCard = async (card) => {
     setIsloading(true);
     try {
-      await axios.put("http://192.168.0.4:3000/api/card/disable", {
+      await axios.put("https://gauthbackendnodeserver.onrender.com/api/card/disable", {
           email: card.email,
           name: card.name,        
       })
@@ -65,7 +65,7 @@ const Cards = () => {
   const deleteCard = async (card) => {
     setIsloading(true);
     try {
-      await axios.put("http://192.168.0.4:3000/api/card/delete", {
+      await axios.put("https://gauthbackendnodeserver.onrender.com/api/card/delete", {
         email: card.email,
         name: card.name,
       })

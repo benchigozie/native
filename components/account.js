@@ -18,25 +18,11 @@ const Account = () => {
                 padding: 50,
                 gap: 6,
             }}>
-                <Pressable style={accountButton}>
-                    
-                        <Text style={centerText}>Change my password</Text>
-                    
-                </Pressable>  
+                
                 <Pressable style={accountButton} onPress={logout}>
                 
                         <Text style={centerText}>Logout</Text>
                     
-                </Pressable>  
-                <Pressable style={accountButton}>
-                
-                        <Text style={centerText}>Disable my account</Text>
-                
-                </Pressable>  
-                <Pressable style={[accountButton, {backgroundColor: 'red'}]}>
-                    
-                        <Text style={centerText}>Delete my account</Text>
-                
                 </Pressable>  
             </View>
     </SafeAreaView>

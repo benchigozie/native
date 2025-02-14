@@ -12,7 +12,7 @@ const TabsLayout = () => {
     
     useEffect(() => {
 
-        const socket = io("http://192.168.0.4:3000", {
+        const socket = io("https://gauthbackendnodeserver.onrender.com", {
             query: { userEmail: user.email }, // Pass user email
         });
         

@@ -25,7 +25,7 @@ const UserOptions = ({ userEmail, userStatus, getAllUsers, setIsloading, userRol
  const promoteUser = async () => {
   setIsloading(true);
   try {
-    await axios.put("http://192.168.0.4:3000/api/user/promote", {
+    await axios.put("https://gauthbackendnodeserver.onrender.com/api/user/promote", {
       email: userEmail,
     })
   } finally {
@@ -38,7 +38,7 @@ const UserOptions = ({ userEmail, userStatus, getAllUsers, setIsloading, userRol
 const demoteUser = async () => {
   setIsloading(true);
   try {
-    await axios.put("http://192.168.0.4:3000/api/user/demote", {
+    await axios.put("https://gauthbackendnodeserver.onrender.com/api/user/demote", {
       email: userEmail,
     })
   } finally {
@@ -52,7 +52,7 @@ const demoteUser = async () => {
   const enableUser = async () => {
     setIsloading(true);
     try {
-      await axios.put("http://192.168.0.4:3000/api/user/enable", {
+      await axios.put("https://gauthbackendnodeserver.onrender.com/api/user/enable", {
         email: userEmail,
       })
     } finally {
@@ -67,7 +67,7 @@ const demoteUser = async () => {
     console.log('now in disable user function')
     setIsloading(true);
     try {
-      await axios.put("http://192.168.0.4:3000/api/user/disable", {
+      await axios.put("https://gauthbackendnodeserver.onrender.com/api/user/disable", {
         email: userEmail,
       })
     } finally {
@@ -80,7 +80,7 @@ const demoteUser = async () => {
   const deleteUser = async () => {
     setIsloading(true);
     try {
-      await axios.put("http://192.168.0.4:3000/api/user/delete", {
+      await axios.put("https://gauthbackendnodeserver.onrender.com/api/user/delete", {
         email: userEmail,
       })
     } finally {

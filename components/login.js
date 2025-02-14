@@ -51,7 +51,7 @@ const Login = () => {
       onSubmit={
         async (values) => {
           
-          await axios.post("http://192.168.0.4:3000/api/user/login", values)
+          await axios.post("https://gauthbackendnodeserver.onrender.com/api/user/login", values)
           .then((response) => {
             if(response.status === 200) {
               console.log('200 stuff')

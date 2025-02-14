@@ -25,7 +25,7 @@ const MyCards = () => {
       return;
     }
     try {
-      await axios.post("http://192.168.0.4:3000/api/card/register", {
+      await axios.post("https://gauthbackendnodeserver.onrender.com/api/card/register", {
 
         email: user.email,
         uid: cardUID,
