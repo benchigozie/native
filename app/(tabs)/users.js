@@ -37,7 +37,15 @@ const Users = () => {
     
     
     if (isLoading) {
-        return <ActivityIndicator size="large"/>
+        return (
+        <View style={{
+            flex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+        }}>
+            <ActivityIndicator size="large"/>
+        </View>
+        )
     }
     else {
 

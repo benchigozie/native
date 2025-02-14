@@ -41,7 +41,7 @@ const Main = () => {
         <View style={externalContainer}>
           <StatusBar style='dark' />
           <SafeAreaView style={containerStyle}>
-            <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold' }}>G-auth</Text>
+            <Text style={{ textAlign: 'center', fontSize: 25, fontWeight: 'bold', color: "#0f0f0f" }}>G-auth</Text>
             <View style={screenChoice}>
               <Pressable style={[screenOption, { backgroundColor: `${screen == 'register' ? '#1B9DC0' : '#b1b5b2'}` }]} onPress={setScreenRegister}>
                 <Text style={{ color: "#edf0ee" }}>Register</Text>

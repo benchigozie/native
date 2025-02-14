@@ -3,6 +3,8 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import Home from "../../components/home";
 import { AuthContext } from "../../context/authContext";
 import { Redirect } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { View } from "react-native";
 
 
 
@@ -17,9 +19,13 @@ const {userToken} = useContext(AuthContext);
 //}
 
   return (
+    <View>
+      <StatusBar style="dark" />
       <SafeAreaView>
         <Home />
       </SafeAreaView>
+    </View>
+      
 
 
   );
