@@ -50,9 +50,10 @@ const Login = () => {
     }}
       onSubmit={
         async (values) => {
-          
+          console.log(values);
           await axios.post("https://gauthbackendnodeserver.onrender.com/api/user/login", values)
           .then((response) => {
+            console.log(response.data);
             if(response.status === 200) {
               console.log('200 stuff')
               login(response.data.accessToken, response.data.user)
