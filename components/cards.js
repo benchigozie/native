@@ -19,7 +19,7 @@ const Cards = () => {
     try {
       await axios.get('https://gauthbackendnodeserver.onrender.com/api/card/mycards', {
         params: {
-          email: "benmarrk@gmail.com",
+          email: user.email,
         },
       })
         .then((response) => {

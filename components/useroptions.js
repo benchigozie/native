@@ -148,7 +148,7 @@ const demoteUser = async () => {
 
         </View>
         {
-          user.role == "admin" || user.role == "master" ? 
+          user.role !== "staff" ? 
           <View style={{
             gap: 10,
           }}>
@@ -190,45 +190,7 @@ const demoteUser = async () => {
           </View>
           : null
         }
-          <View style={{
-            gap: 10,
-          }}>
-          
-              {
-                userStatus == "active" ?
-                <Pressable style={{
-                  backgroundColor: '#1B9DC0',
-                  borderRadius: 5,
-                }} onPress={() => disableUser(userEmail)}>
-                  <Text style={{
-                    color: '#EDE5E5',
-                    padding: 10,
-                  }}>Disable User</Text>
-                  </Pressable>
-                  :
-                  <Pressable  style={{
-                    backgroundColor: '#1B9DC0',
-                    borderRadius: 5,
-                  }} onPress={() => enableUser(userEmail)}>   
-                  <Text style={{
-                    color: '#EDE5E5',
-                    padding: 10,
-                  }}>Enable User</Text>
-                  </Pressable>
-              }
-          
-            <Pressable style={{
-                    backgroundColor: '#EC2C2C',
-                    borderRadius: 5,
-                  }} onPress={() => {
-              deleteUser(userEmail);
-            }}>
-              <Text style={{
-                color: '#EDE5E5',
-                padding: 10,
-              }}>Delete User</Text>
-            </Pressable>
-          </View>
+         
           
    
       </View>
